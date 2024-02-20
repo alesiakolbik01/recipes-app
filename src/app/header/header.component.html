@@ -4,25 +4,31 @@
             <button class="navbar-toggler" type="button" (click)="collapsed = !collapsed">
                 <span class="navbar-toggler-icon"></span>
               </button>
-            <a routerLink="/" class="navbar-brand">Recipe Book</a>
+            <a routerLink="/" class="navbar-brand logo-img">
+              <img src="assets/logo.png" alt="logo-recipe-book" class="me-2">
+              <span>Recipe Book</span>
+            </a>
           </div>
           <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Recipes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Shopping List</a>
-          </li>
-        </ul>
-         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button">Manage</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Save Data</a></li>
-                    <li><a class="dropdown-item" href="#">Fetch Data</a></li>
-                </ul>
+          @for(tab of navItems; track tab.id){
+            <li class="nav-item">
+              <a class="nav-link"
+                role="button"
+                [ngClass]="{active: tab.id === activeTabId}"
+                (click)="handleClickItemNav(tab.id)"
+                >{{tab.name}}</a>
             </li>
+          }
+        </ul>
+        <ul appDropdown class="nav navbar-nav navbar-right me-2">
+          <li class="dropdown">
+              <a class="nav-link dropdown-toggle" role="button">Manage</a>
+              <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" role="button">Save Data</a></li>
+                  <li><a class="dropdown-item" role="button">Fetch Data</a></li>
+              </ul>
+          </li>
         </ul>
       </div>
     </div>

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { Recipe } from '../../recipe.model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-recipe-item',
@@ -9,8 +10,7 @@ import { Recipe } from '../../recipe.model';
 export class RecipeItemComponent {
   @Input() recipe?: Recipe
 
-
-  convertDateTotext(date:Date):string {
-    return '2 days ago';
+  convertDateToText(date:Date):string {
+    return moment(date).fromNow();
   }
 }

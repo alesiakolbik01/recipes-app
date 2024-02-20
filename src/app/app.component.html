@@ -1,9 +1,18 @@
-<app-header></app-header>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
+<app-header 
+  [navItems]="tabs"
+  [activeTabId]="activeTabId"
+  (onChangeTabItem) = "onChangeTabItem($event)"
+ ></app-header>
+<div class="container mt-4">
+  @switch(activeTabId){
+    @case (1){
       <app-recipes></app-recipes>
+    }
+    @case (2){
       <app-shopping-list></app-shopping-list>
-    </div>
-  </div>
+    }
+    @default {
+      <app-recipes></app-recipes>
+    }
+  }
 </div>

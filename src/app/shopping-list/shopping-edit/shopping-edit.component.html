@@ -1,23 +1,53 @@
 <div class="row">
-    <div class="col-xs-12">
-        <form>
-            <div class="row">
-                <div class="col-sm-5 form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" class="form-control">
-                </div>
-                <div class="col-sm-2 form-group">
-                    <label for="amount">Amount</label>
-                    <input type="text" id="amount" class="form-control">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="btn btn-success" type="submit">Add</button>
-                    <button class="btn btn-danger" type="submit">Delete</button>
-                    <button class="btn btn-primary" type="submit">Clear</button>
-                </div>
-            </div>
-        </form>
-    </div>
+  <div class="col-xs-12">
+    <form #f="ngForm">
+      <div class="row">
+        <div class="col-sm-5 form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            required
+            ng-valid
+            [(ngModel)]="nameInput"
+            name="nameInput"
+           
+          />
+        </div>
+        <div class="col-sm-2 form-group">
+          <label for="amount">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            class="form-control"
+            required
+            ng-valid
+            [(ngModel)]="amountInput"
+            name="amountInput"
+            [ngClass]="{'ng-invalid': !f.form.value.amountInput} && f.submitted"
+          />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-xs-12">
+          <button
+            class="btn btn-success me-1"
+            type="submit"
+            (click)="addItem(f)"
+            [disabled]="!f.form.valid"
+          >
+            Add
+          </button>
+          <button
+            class="btn btn-primary me-1"
+            type="submit"
+            (click)="f.form.reset()"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,28 +1,66 @@
+@if (editRecipe){
 <div class="row">
-    <div class="col-xs-12">
-        <h1>Recipe Name</h1>
-    </div>
+  <div class="col-xs-12">
+   <app-recipe-form 
+    (hide)="editRecipe = false"
+    [editingResipeId] = "data.id"
+   ></app-recipe-form>
+  </div>
+</div>
+} @else {
+<div class="row g-0 mb-2">
+  <div class="col-xs-12 image-frame">
+    <img
+      [src]="data.imagePath"
+      class="img-fluid mx-sm-auto"
+      alt="{{ data.name }}"
+    />
+  </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle">Manage Recipe
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">To Shopping List</a></li>
-                    <li><a href="#">Edit Recipe</a></li>
-                    <li><a href="#">Delete Recipe</a></li>
-                </ul>
-        </div>
-    </div>
+  <div class="col-xs-12">
+    <h1>{{ data.name }}</h1>
+  </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
-        Description
+  <div class="col-xs-12">
+    <div class="nav navbar-nav navbar-right" appDropdown>
+      <div class="dropdown">
+        <button
+          type="button"
+          class="btn btn-primary dropdown-toggle mb-2"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Manage Recipe
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li class="dropdown-item" role="button">To Shopping List</li>
+          <li class="dropdown-item" role="button" (click)="editRecipe = true">
+            Edit Recipe
+          </li>
+          <li
+            class="dropdown-item"
+            appConfirmAlert
+            role="button"
+            (click)="handleDeleteRecipe(data.id)"
+          >
+            Delete Recipe
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
+</div>
+<div class="row mb-2">
+  <div class="col-xs-12">
+    {{ data.description }}
+  </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
-        Ingredients
-    </div>
+  <div class="col-xs-12">
+    <span class="text-muted">{{ convertDateToText(data.createDate) }}</span>
+  </div>
 </div>
+}

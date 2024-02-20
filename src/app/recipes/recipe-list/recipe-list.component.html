@@ -1,13 +1,19 @@
 <div class="row">
     <div class="col-xs-12">
-        <button class="btn btn-success">New Recipe</button>
+        @if(isShowRecipeForm){
+            <app-recipe-form (hide)="isShowRecipeForm = false"></app-recipe-form>
+        }
+        @else{
+            <button class="btn btn-success mb-2 mt-2" (click)="isShowRecipeForm = true">New Recipe</button>
+        }
+        <hr>
     </div>
-    <hr>
 </div>
 <div class="row">
     <div class="col-xs-12">
-          @for(recipe of recipes;track recipe.id){
-            <app-recipe-item [recipe]="recipe"></app-recipe-item>
+          @for(recipe of recipes$ | async;track recipe.id){
+            <app-recipe-item [recipe]="recipe" (click)="onClickItemRecipe(recipe.id)">
+            </app-recipe-item>
           }
     </div>
 </div>

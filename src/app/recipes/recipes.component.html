@@ -1,8 +1,15 @@
 <div class="row">
     <div class="col-md-5">
-        <app-recipe-list></app-recipe-list>
+        <app-recipe-list 
+            (onClickRecipeDetail)="detailRecipe = $event"
+        ></app-recipe-list>
     </div>
-    <div class="col-md-7">
-        <app-recipe-detail></app-recipe-detail>
-    </div>
+    @if(detailRecipe){
+        <div class="col-md-7">
+            <app-recipe-detail 
+                [recipeId]="detailRecipe"
+                (onCloseDetails)="detailRecipe = undefined"
+            ></app-recipe-detail>
+        </div>
+    }
 </div>

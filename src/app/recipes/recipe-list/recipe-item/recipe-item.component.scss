@@ -1,4 +1,17 @@
-a {
-    text-decoration: none;
-    color: initial;
+.card {
+
+    a {
+        text-decoration: none;
+        color: initial;
+    }
+    
+    .recipe-item-image {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        height: 100%;
+        width: 100%;
+    }
 }

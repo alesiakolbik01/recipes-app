@@ -1,0 +1,60 @@
+<div class="row">
+    <div>{{ recipeData | json }}</div>
+    <div class="col-xs-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>{{ recipeData ? 'Editing the recipe' : 'Cretion a new recipe' }}</h3> 
+            <button class="btn" (click)="hide.emit()">
+                <span class="icon-cross"></span> 
+                <!-- image is't showing -->
+            </button>
+        </div>
+        <form #f="ngForm" (ngSubmit)="onFormSubmit(f)">
+            <div class="mb-3">
+                <label 
+                    class="form-label" 
+                    for="nameInput" 
+                >Title</label>
+                <input class="form-control"
+                    name="name"
+                    minlength="4"
+                    autocomplete="none"
+                    [(ngModel)] ="recipeData.name"
+                    required 
+                    id="nameInput"
+                />
+            </div>
+            <div class="mb-3">
+                <label class="form-label"
+                    for="descriptionInput"
+                 >Write a little bit about the recipe</label>
+                <textarea class="form-control"
+                    id="descriptionInput"
+                    autocomplete="none"
+                    name="description"
+                    minlength="4"
+                    ngModel
+                    required
+                    [(ngModel)] ="recipeData.description"
+                 ></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"
+                    for="imagePathInput"
+                 >Add a picture to your recipe</label>
+                <input class="form-control"
+                    name="imagePath"
+                    id="imagePathInput"
+                    autocomplete="none"
+                    [disabled]="editingResipeId"
+                    minlength="4"
+                    ngModel
+                    required
+                    [(ngModel)] ="recipeData.imagePath"
+                />
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success" [disabled]="!f.form.valid" >{{ recipeData ? 'Save' : 'Add' }}</button>
+            </div>
+        </form>
+    </div>
+</div>
