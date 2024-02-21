@@ -16,6 +16,11 @@ export class RecipesService {
       imagePath:
         'https://www.cookingclassy.com/wp-content/uploads/2019/09/meatballs-21.jpg',
       createDate: new Date(),
+      ingredients: [
+        { name:'tomato', amount: 2},
+        { name:'onion', amount: 1},
+        { name:'salad', amount: 1}
+      ]
     },
     {
       id: 2,

@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-          @for(recipe of recipes$ | async;track recipe.id){
+          @for(recipe of recipes$ | async; track recipe.id){
             <app-recipe-item [recipe]="recipe" (click)="onClickItemRecipe(recipe.id)">
             </app-recipe-item>
           }

@@ -9,6 +9,7 @@ import {
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Recipe } from '../recipes/recipe.model';
 import { RecipesService } from '../recipes/services/recipes.service';
+import { Ingredient } from '../shared/ingredient.model';
 
 @Component({
   selector: 'app-recipe-form',
@@ -22,11 +23,14 @@ export class RecipeFormComponent implements OnInit {
     description: string;
     imagePath: string;
     id?: number;
+    time?: number;
   } = {
     name: '',
     description: '',
-    imagePath: '',
+    imagePath: ''
   };
+
+  ingredients: Ingredient[] = [];
 
   constructor() {
     this.recipesService = inject(RecipesService);
@@ -50,6 +54,14 @@ export class RecipeFormComponent implements OnInit {
       }
       this.hide.emit();
     }
+  }
+
+  addIngredient(item: any){
+    this.ingredients.push(item);
+  }
+
+  deleteIngredient(name: string){
+    this.ingredients = this.ingredients.filter(item => item.name !== name);
   }
 
 }

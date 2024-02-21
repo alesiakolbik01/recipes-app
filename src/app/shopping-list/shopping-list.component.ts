@@ -1,23 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../recipes/services/shopping-list.service'; 
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.scss',
 })
-export class ShoppingListComponent {
-  ingredients: Ingredient[] = [
-    { name: 'tomat', amount: 1, id: 1 },
-    { name: 'onion', amount: 1, id: 2 },
-  ];
+export class ShoppingListComponent implements OnInit {
+  protected shoppingListService?: ShoppingListService;
+  ingredients$: Observable <Ingredient[]>;
+  isShowForm:boolean = false;
 
-  addItem(item: Ingredient): void {
-    console.log(item)
-    this.ingredients.push(item);
+  constructor(){
+    this.shoppingListService = inject(ShoppingListService);
   }
 
-  deleteItem(id: number): void {
-    this.ingredients = this.ingredients.filter((item) => item.id !== id);
+  ngOnInit(){
+    this.ingredients$ = this.shoppingListService.ingredients;
   }
 }

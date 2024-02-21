@@ -7,20 +7,21 @@
 //     color:var(--bs-danger);
 // }
 
-.ng-valid[required], .ng-valid.required  {
-    border-left: 5px solid #42A948; /* green */
-  }
-  
-  .ng-invalid:not(form):not(label)  {
-    border-left: 5px solid #a94442; /* red */
-  }
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948; /* green */
+}
 
-  .icon-cross {
-    display: inline-block;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25px;
-    height: 25px;
-    background: url(../../assets/icons/close.png) no-repeat center center /cover;
-  }
+.ng-invalid:not(form):not(label) {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.icon-cross {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  background: url('/assets/icons/close.png') no-repeat center center / cover;
+}

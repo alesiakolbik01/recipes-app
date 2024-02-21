@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { Ingredient } from '../../shared/ingredient.model';
 import { NgForm } from '@angular/forms';
 
@@ -9,6 +9,8 @@ import { NgForm } from '@angular/forms';
 })
 export class ShoppingEditComponent {
   @Output() handleAddItem = new EventEmitter<Ingredient>();
+  @Output() hide?: EventEmitter<void> = new EventEmitter<void>();
+  @Input() btnHide: boolean;
   nameInput: string = '';
   amountInput: number;
 
@@ -20,7 +22,6 @@ export class ShoppingEditComponent {
   addItem(f: NgForm): void {
     if(f.form.valid){
       this.handleAddItem.emit({
-        id: new Date().getTime(),
         name: this.nameInput,
         amount: this.amountInput,
       });

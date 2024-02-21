@@ -1,7 +1,39 @@
-.ng-valid[required], .ng-valid.required  {
-    border-left: 5px solid #42A948; /* green */
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.icon-cross {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  background: url("/assets/icons/close.png") no-repeat center center / cover;
+}
+
+.btn-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--bs-green);
+  border-color: white;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+
+  svg {
+    width: 100px;
+
+    path {
+      fill: white
+    }
   }
-  
-  .ng-invalid:not(form)  {
-    border-left: 5px solid #a94442; /* red */
-  }
+}
