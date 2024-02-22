@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Ingredient } from '../../shared/ingredient.model';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 
-Injectable({
-  providedIn: 'root',
-});
+Injectable()
 export class ShoppingListService {
   ingredients: BehaviorSubject<Ingredient[]> = new BehaviorSubject<Ingredient[]>([
     { name: 'tomat', amount: 1},

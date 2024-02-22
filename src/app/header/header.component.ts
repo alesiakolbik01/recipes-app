@@ -11,6 +11,8 @@ export class HeaderComponent {
   @Input() activeTabId: number;
   @Output() onChangeTabItem = new EventEmitter<number>();
 
+  
+
   collapsed:boolean = true;
 
   handleClickItemNav(id: number){

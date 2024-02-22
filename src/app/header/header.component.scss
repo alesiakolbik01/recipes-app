@@ -1,3 +1,8 @@
+header {
+	z-index: 1000;
+    position: relative;
+}
+
 .navbar-toggler {
     border: none;
     outline: none;
@@ -30,3 +35,4 @@
         justify-content: space-between;
     }
 }
+

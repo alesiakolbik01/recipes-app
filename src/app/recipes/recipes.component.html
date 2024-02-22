@@ -1,15 +1,10 @@
-<div class="row">
+<div class="row g-2">
     <div class="col-md-5">
-        <app-recipe-list 
-            (onClickRecipeDetail)="detailRecipe = $event"
-        ></app-recipe-list>
+        <app-recipe-list></app-recipe-list>
     </div>
-    @if(detailRecipe){
+    @if(selectedRecipe){
         <div class="col-md-7">
-            <app-recipe-detail 
-                [recipeId]="detailRecipe"
-                (onCloseDetails)="detailRecipe = undefined"
-            ></app-recipe-detail>
+            <app-recipe-detail [data] ="selectedRecipe"></app-recipe-detail>
         </div>
     }
 </div>

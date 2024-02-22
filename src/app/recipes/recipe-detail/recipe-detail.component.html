@@ -1,25 +1,27 @@
-@if (editRecipe){
-<div class="row">
-  <div class="col-xs-12">
-    <app-recipe-form
-      (hide)="editRecipe = false"
-      [editingResipeId]="data.id"
-    ></app-recipe-form>
+<div class="mobile-full-screen-block">
+  <button class="mobile-full-screen-block__close btn btn-outline-primary float-end clearfix mb-2" (click)="close()">Back</button>
+  @if (editRecipe){
+  <div class="row">
+    <div class="col-xs-12">
+      <app-recipe-form
+        (hide)="editRecipe = false"
+        [editingResipeId]="data.id"
+      ></app-recipe-form>
+    </div>
   </div>
-</div>
-} @else {
-<div class="row g-0 mb-2">
-  <div class="col-xs-12 image-frame">
-    <img
-      [src]="data.imagePath"
-      class="img-fluid mx-sm-auto"
-      alt="{{ data.name }}"
-    />
+  } @else {
+  <div class="row g-0 mb-2">
+    <div class="col-xs-12 image-frame">
+      <img
+        [src]="data.imagePath"
+        class="img-fluid mx-sm-auto"
+        alt="{{ data.name }}"
+      />
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12 d-flex justify-content-between align-items-center">
-    <h1>{{ data.name }}</h1>
+  <div class="row">
+    <div class="col-xs-12 d-flex justify-content-between align-items-center">
+      <h1>{{ data.name }}</h1>
       <div class="dropdown" appDropdown>
         <button
           type="button"
@@ -31,7 +33,14 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li *ngIf="data.ingredients" class="dropdown-item" role="button" (click)="addToSoppingList()">To Shopping List</li>
+          <li
+            *ngIf="data.ingredients"
+            class="dropdown-item"
+            role="button"
+            (click)="addToSoppingList()"
+          >
+            To Shopping List
+          </li>
           <li class="dropdown-item" role="button" (click)="editRecipe = true">
             Edit Recipe
           </li>
@@ -45,29 +54,40 @@
           </li>
         </ul>
       </div>
+    </div>
   </div>
-</div>
-@if(data.ingredients){
-  <div class="row">
+  @if(data.ingredients){
+  <div class="row mb-3 mt-3">
     <h5>Ingredients:</h5>
-    <ul class="list-group list-group-flush">
+    <ul class="list-group">
       @for(ingredient of data.ingredients; track ingredient.name){
       <li class="list-group-item">
-        {{ ingredient.name }}
-        ({{ ingredient.amount }})
+        <input
+          class="form-check-input me-1"
+          type="checkbox"
+          #checkboxes
+          (change)="onSelectedItem(ingredient, $event.target.checked)"
+        />
+        {{ ingredient.name }} ({{ ingredient.amount }})
       </li>
       }
     </ul>
   </div>
   }
-<div class="row mb-2">
-  <div class="col-xs-12">
-    {{ data.description }}
+  <div *ngIf="data.time" class="row mb-3">
+    <div class="col-xs-12">
+      <span class="text-muted">Cooking time: {{ data.time }} min.</span>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12 text-end">
-    <span class="text-muted">{{ convertDateToText(data.createDate) }}</span>
+  <div class="row mb-2">
+    <div class="col-xs-12">
+      {{ data.description }}
+    </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12 text-end">
+      <span class="text-muted">{{ convertDateToText(data.createDate) }}</span>
+    </div>
+  </div>
+  }
 </div>
-}

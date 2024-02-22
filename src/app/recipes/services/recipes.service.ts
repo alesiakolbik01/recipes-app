@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class RecipesService {
   constructor() {}
 
@@ -20,7 +18,8 @@ export class RecipesService {
         { name:'tomato', amount: 2},
         { name:'onion', amount: 1},
         { name:'salad', amount: 1}
-      ]
+      ],
+      time: 45
     },
     {
       id: 2,
@@ -29,6 +28,7 @@ export class RecipesService {
         'Mięso mielone wieprzowo-wołowe wrzucić na rozgrzaną oliwę. Dodajemy szczyptę soli i trochę pieprzu, następnie suszoną bazylię i oregano. Gdy mięso będzie już dobre, najlepiej by były malutkie kawałeczki, a nie sklejone, dodajemy przecier pomidorowy. Próbujemy i wszystko doprawiamy, jeżeli jest taka potrzeba. W dużym garnku gotujemy wodę na makaron, gdy zacznie wrzeć dodajemy sól i łyżkę oliwy. Pilnujemy by makaron się nie rozgotował (ma być al-dente). Gotowy makaron układamy na porcje, na duże talerze. Na wierzch dodajemy sos. Wszystko posypujemy startym parmezanem i dodajemy świeże listki bazylii.',
       createDate: new Date(),
       imagePath: 'https://www.patee.ru/r/x6/0a/bb/2b/960m.jpg',
+      time: 67
     },
     {
       id: 3,
@@ -41,10 +41,13 @@ export class RecipesService {
       createDate: new Date(),
       imagePath:
         'https://cdn.shopify.com/s/files/1/0577/4239/3541/files/bruschetta-with-soft-cheese-and-grilled-red-paprik-2023-04-06-18-54-15-utc_1.jpg?v=1688625483',
+        time: 60
     },
   ]);
 
   recipes$: Observable<Recipe[]> = this.recipes.asObservable();
+
+  selectedRecipe = new EventEmitter<Recipe>();
 
   onDeleteRecipe(id: number): void {
     this.recipes$.pipe(take(1)).subscribe((val) => {
