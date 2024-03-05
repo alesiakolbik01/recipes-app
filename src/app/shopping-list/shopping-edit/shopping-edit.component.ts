@@ -20,14 +20,12 @@ export class ShoppingEditComponent {
   }
 
   addItem(f: NgForm): void {
-    if(f.form.valid){
+    if (f.form.valid) {
       this.handleAddItem.emit({
         name: this.nameInput,
         amount: this.amountInput,
       });
       f.form.reset();
     }
-   
   }
-
 }

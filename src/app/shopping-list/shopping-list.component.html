@@ -1,31 +1,86 @@
 <div class="row">
-    <div class="col-xs-10">
-        @if(isShowForm){
-            <app-shopping-edit 
-            (handleAddItem)="shoppingListService.addItem($event); isShowForm = false"
-            (hide)="isShowForm = false"
-            btnHide="true"
-            ></app-shopping-edit>
-        }
-        @else {
-            <button class="btn-circle" role="button" (click)="isShowForm = true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" version="1.1">
-                    <path d="M836 476H548V188c0-19.8-16.2-36-36-36s-36 16.2-36 36v288H188c-19.8 0-36 16.2-36 36s16.2 36 36 36h288v288c0 19.8 16.2 36 36 36s36-16.2 36-36V548h288c19.8 0 36-16.2 36-36s-16.2-36-36-36z"/>
-                </svg>
-            </button>
-        }
-        <hr class="mt-5 mb-5">
+  <div class="col-xs-10">
+    @if(isShowForm){
+    <app-shopping-edit
+      (handleAddItem)="shoppingListService.addItem($event); isShowForm = false"
+      (hide)="isShowForm = false"
+      btnHide="true"
+    ></app-shopping-edit>
+    } @else {
+    <button class="btn-circle" role="button" (click)="isShowForm = true">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+      >
+        <path
+          d="M836 476H548V188c0-19.8-16.2-36-36-36s-36 16.2-36 36v288H188c-19.8 0-36 16.2-36 36s16.2 36 36 36h288v288c0 19.8 16.2 36 36 36s36-16.2 36-36V548h288c19.8 0 36-16.2 36-36s-16.2-36-36-36z"
+        />
+      </svg>
+    </button>
+    }
+    <hr class="mt-5 mb-5" />
+
+    <h2 class="mb-3">Your shopping list</h2>
+    <ul class="list-group shopping-list">
+      @for(ingredient of ingredients$ | async; track ingredient.id){
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center shopping-list-item"
+        style="cursor: pointer"
+      >
+        <span>{{ ingredient.name }}</span>
+        <form>
+          <div
+            class="value-button"
+            id="decrease"
+            (click)="
+              decreaseAmountIngredient(ingredient.name, ingredient.amount)
+            "
+            [ngClass]="{ disabled: ingredient.amount < 1 }"
+          >
+            -
+          </div>
+          <input
+            type="number"
+            id="number"
+            readonly
+            value="{{ ingredient.amount }}"
+          />
+          <div
+            class="value-button"
+            id="increase"
+            (click)="increaseAmountIngredient(ingredient.name)"
+          >
+            +
+          </div>
+        </form>
+        <span>
+          <button
+          class="btn btn-danger me-1 float-end"
+          role="button"
+          (click)="shoppingListService.deleteItem(ingredient.name)"
+        >
+          Delete
+        </button>
+        </span>
+      </li>
+      }
+    </ul>
+    <button 
+        printSectionId="print-section" 
+        class="btn btn-secondary mt-3 float-start"
+        role="button" 
+        ngxPrint
+    >print</button>
+    <div id="print-section">
         <h2 class="mb-3">Your shopping list</h2>
         <ul class="list-group">
-            @for(ingredient of ingredients$ | async; track ingredient.id){
-                <li 
-                class="list-group-item d-flex justify-content-between align-items-center"
-                style="cursor: pointer;"
-                >
-                    <span>{{ingredient.name}} ({{ingredient.amount}})</span>
-                    <button class="btn btn-danger me-1 float-end" role="button" (click)="shoppingListService.deleteItem(ingredient.name)">Delete</button>
-                </li>
-            }
+          @for(ingredient of ingredients$ | async; track ingredient.id){
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ ingredient.name }} (<strong>{{ ingredient.amount }}</strong>)</span>
+          </li>
+          }
         </ul>
     </div>
+  </div>
 </div>

@@ -15,6 +15,6 @@ export class RecipeListComponent implements OnInit {
   isShowRecipeForm: boolean = false;
 
   ngOnInit() {
-    this.recipes$ = this.recipesService.recipes;
+    this.recipes$ = this.recipesService.object;
   }
 }

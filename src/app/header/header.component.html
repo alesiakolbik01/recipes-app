@@ -15,8 +15,8 @@
             <li class="nav-item">
               <a class="nav-link"
                 role="button"
-                [ngClass]="{active: tab.id === activeTabId}"
-                (click)="handleClickItemNav(tab.id)"
+                [routerLink]="tab.link"
+                routerLinkActive="active"
                 >{{tab.name}}</a>
             </li>
           }

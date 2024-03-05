@@ -26,7 +26,6 @@ export class RecipeDetailComponent {
 
   @Input() data: Recipe;
   @ViewChildren('checkboxes') checkboxes: QueryList<ElementRef>;
-  @Output() onCloseDetails = new EventEmitter<void>();
 
   constructor(
     private recipesService?: RecipesService,
@@ -55,7 +54,7 @@ export class RecipeDetailComponent {
 
   handleDeleteRecipe(id: number): void {
     this.recipesService.onDeleteRecipe(id);
-    this.onCloseDetails.emit();
+    this.close();
   }
 
   addToSoppingList() {

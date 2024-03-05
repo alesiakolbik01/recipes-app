@@ -9,14 +9,10 @@ import { NavItem } from './shared/nav-item.model'
 export class AppComponent {
 
   title:string = 'culinary-recipes-app';
-  activeTabId:number = 1;
-  tabs: NavItem[] = [
-    {name: 'Recipes', id: 1, selector: 'app-recipes'},
-    {name: 'Shopping List', id: 2, selector: 'app-shopping-list'},
-  ]
 
-  onChangeTabItem(id:number):void{
-    this.activeTabId = id;
-  }
+  tabs: NavItem[] = [
+    {name: 'Recipes', id: 1, link: '/'},
+    {name: 'Shopping List', id: 2, link: '/shopping-list'},
+  ]
 
 }

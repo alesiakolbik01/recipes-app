@@ -1,12 +1,12 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Recipe } from '../recipe.model';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, Observable, take, map } from 'rxjs';
 
 @Injectable()
 export class RecipesService {
   constructor() {}
 
-  recipes: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([
+  object: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([
     {
       id: 1,
       name: 'Test recipe',
@@ -15,11 +15,11 @@ export class RecipesService {
         'https://www.cookingclassy.com/wp-content/uploads/2019/09/meatballs-21.jpg',
       createDate: new Date(),
       ingredients: [
-        { name:'tomato', amount: 2},
-        { name:'onion', amount: 1},
-        { name:'salad', amount: 1}
+        { name: 'tomato', amount: 2 },
+        { name: 'onion', amount: 1 },
+        { name: 'salad', amount: 1 },
       ],
-      time: 45
+      time: 45,
     },
     {
       id: 2,
@@ -28,7 +28,12 @@ export class RecipesService {
         'Mięso mielone wieprzowo-wołowe wrzucić na rozgrzaną oliwę. Dodajemy szczyptę soli i trochę pieprzu, następnie suszoną bazylię i oregano. Gdy mięso będzie już dobre, najlepiej by były malutkie kawałeczki, a nie sklejone, dodajemy przecier pomidorowy. Próbujemy i wszystko doprawiamy, jeżeli jest taka potrzeba. W dużym garnku gotujemy wodę na makaron, gdy zacznie wrzeć dodajemy sól i łyżkę oliwy. Pilnujemy by makaron się nie rozgotował (ma być al-dente). Gotowy makaron układamy na porcje, na duże talerze. Na wierzch dodajemy sos. Wszystko posypujemy startym parmezanem i dodajemy świeże listki bazylii.',
       createDate: new Date(),
       imagePath: 'https://www.patee.ru/r/x6/0a/bb/2b/960m.jpg',
-      time: 67
+      time: 67,
+      ingredients: [
+        { name: 'tomato', amount: 2 },
+        { name: 'onion', amount: 1 },
+        { name: 'salad', amount: 1 },
+      ]
     },
     {
       id: 3,
@@ -41,55 +46,63 @@ export class RecipesService {
       createDate: new Date(),
       imagePath:
         'https://cdn.shopify.com/s/files/1/0577/4239/3541/files/bruschetta-with-soft-cheese-and-grilled-red-paprik-2023-04-06-18-54-15-utc_1.jpg?v=1688625483',
-        time: 60
+      time: 60,
+      ingredients: [
+        { name: 'tomato', amount: 2 },
+        { name: 'onion', amount: 1 },
+        { name: 'salad', amount: 1 },
+      ]
     },
   ]);
 
-  recipes$: Observable<Recipe[]> = this.recipes.asObservable();
+  recipes$: Observable<Recipe[]> = this.object.asObservable();
 
   selectedRecipe = new EventEmitter<Recipe>();
 
   onDeleteRecipe(id: number): void {
-    this.recipes$.pipe(take(1)).subscribe((val) => {
-      const newRecipesList = val.filter((item) => item.id !== id);
-      this.recipes.next(newRecipesList);
+    this.recipes$.pipe(take(1)).subscribe((array: Recipe[]) => {
+      const newRecipesList = array.filter((item) => item.id !== id);
+      this.object.next(newRecipesList);
     });
   }
 
   onAddNewRecipe(dataForm: any) {
     let itemsLength: any;
-    this.recipes$.pipe(take(1)).subscribe((val) => {
-      itemsLength = this.recipes$.subscribe((arr) => arr.length);
+    this.recipes$.pipe(take(1)).subscribe((array: Recipe[]) => {
+      itemsLength = array.length;
       let newRecipe = {
         ...dataForm,
-        createDate: new Date(),
         id: itemsLength + 1,
+        createDate: new Date(),
       };
 
-      const newRecipesList = [...val, newRecipe];
-      this.recipes.next(newRecipesList);
+      const newRecipesList = [...array, newRecipe];
+      this.object.next(newRecipesList);
     });
   }
 
   getRecipeById(id: number) {
     let recipe: Recipe;
-    this.recipes$.pipe(take(1)).subscribe((val) => {
-      recipe = val.find((item) => item.id === id);
+    this.recipes$.pipe(take(1)).subscribe((array: Recipe[]) => {
+      recipe = array.find((item: Recipe) => item.id === id);
     });
     return recipe;
   }
 
   onUpdateRecipe(dataForm: any, id: number): void {
-    this.recipes$.pipe(take(1)).subscribe((val) => {
-      let newRecipeList = [...val];
-      let editableItem = newRecipeList.find((item) => item.id === id);
-      editableItem = {
-        ...editableItem,
+    this.recipes$.pipe(take(1)).subscribe((array: Recipe[]) => {
+      let newRecipeList = [...array];
+      let editableItemIndex = newRecipeList.findIndex(
+        (item: Recipe) => item.id === id
+      );
+      const newItem = {
+        ...array[editableItemIndex],
         ...dataForm,
         modifiedDate: new Date(),
       };
-
-      this.recipes.next(newRecipeList);// doesn't works, the array doesn't updating
+      newRecipeList[editableItemIndex] = newItem;
+      this.object.next(newRecipeList);
+      this.selectedRecipe.emit(newItem);
     });
   }
 }

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NgxPrintModule } from 'ngx-print';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -15,6 +17,11 @@ import { DropdownDirectiveDirective } from './shared/dropdown-directive.directiv
 import { ShoppingListService } from './recipes/services/shopping-list.service';
 import { RecipesService } from './recipes/services/recipes.service';
 
+const appRoutes: Routes = [
+  { path: '', component: RecipesComponent },
+  { path: 'shopping-list', component: ShoppingListComponent },
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,15 +33,10 @@ import { RecipesService } from './recipes/services/recipes.service';
     RecipeDetailComponent,
     RecipeItemComponent,
     RecipeFormComponent,
-    DropdownDirectiveDirective
+    DropdownDirectiveDirective,
   ],
-  imports: [
-    BrowserModule, FormsModule
-  ],
-  providers: [
-    ShoppingListService,
-    RecipesService
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, FormsModule, NgxPrintModule, RouterModule.forRoot(appRoutes)],
+  providers: [ShoppingListService, RecipesService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
