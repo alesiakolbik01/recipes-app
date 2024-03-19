@@ -18,6 +18,7 @@ import { ShoppingListService } from './recipes/services/shopping-list.service';
 import { RecipesService } from './recipes/services/recipes.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
+import { RecipeNotSelectedComponent } from './recipes/recipe-not-selected/recipe-not-selected.component';
 
 const appRoutes: Routes = [
   { path: '', component: RecipesComponent, pathMatch: 'full' },
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
     RecipeFormComponent,
     DropdownDirectiveDirective,
     PageNotFoundComponent,
+    RecipeNotSelectedComponent,
   ],
   imports: [BrowserModule, FormsModule, NgxPrintModule, AppRoutingModule],
   providers: [ShoppingListService, RecipesService],

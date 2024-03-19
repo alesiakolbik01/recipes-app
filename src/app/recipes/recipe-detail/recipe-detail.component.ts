@@ -1,12 +1,9 @@
 import {
   Component,
-  EventEmitter,
-  Input,
-  Output,
   ViewChildren,
-  inject,
   QueryList,
   ElementRef,
+  OnInit,
 } from '@angular/core';
 
 import { Recipe } from '../recipe.model';
@@ -14,23 +11,32 @@ import { RecipesService } from '../services/recipes.service';
 import moment from 'moment';
 import { ShoppingListService } from '../services/shopping-list.service';
 import { Ingredient } from '../../shared/ingredient.model';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.scss',
 })
-export class RecipeDetailComponent {
+export class RecipeDetailComponent implements OnInit {
   editRecipe: boolean = false;
   selectedIngredientsList: Ingredient[] = [];
 
-  @Input() data: Recipe;
+  data: Recipe = null;
   @ViewChildren('checkboxes') checkboxes: QueryList<ElementRef>;
 
   constructor(
     private recipesService?: RecipesService,
-    private shoppingListService?: ShoppingListService
+    private shoppingListService?: ShoppingListService,
+    private router?: Router,
+    private route?: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe( (params: Params) => {
+      this.data = this.recipesService.getRecipeById(+params['id']);
+    })
+  }
 
   onSelectedItem(newIng: Ingredient, isChecked: boolean) {
     if (isChecked) {
@@ -65,5 +71,6 @@ export class RecipeDetailComponent {
 
   close(){
     this.recipesService.selectedRecipe.emit(null);
+    this.router.navigate(['/recipes']);
   }
 }
