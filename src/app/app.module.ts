@@ -16,10 +16,14 @@ import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 import { DropdownDirectiveDirective } from './shared/dropdown-directive.directive';
 import { ShoppingListService } from './recipes/services/shopping-list.service';
 import { RecipesService } from './recipes/services/recipes.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
 
 const appRoutes: Routes = [
-  { path: '', component: RecipesComponent },
+  { path: '', component: RecipesComponent, pathMatch: 'full' },
   { path: 'shopping-list', component: ShoppingListComponent },
+  { path: 'not-found', component: PageNotFoundComponent},
+  { path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({
@@ -34,8 +38,9 @@ const appRoutes: Routes = [
     RecipeItemComponent,
     RecipeFormComponent,
     DropdownDirectiveDirective,
+    PageNotFoundComponent,
   ],
-  imports: [BrowserModule, FormsModule, NgxPrintModule, RouterModule.forRoot(appRoutes)],
+  imports: [BrowserModule, FormsModule, NgxPrintModule, AppRoutingModule],
   providers: [ShoppingListService, RecipesService],
   bootstrap: [AppComponent],
 })
