@@ -12,7 +12,6 @@ export class RecipeListComponent implements OnInit {
   constructor(private recipesService: RecipesService) {}
 
   recipes$: Observable<Recipe[]>;
-  isShowRecipeForm: boolean = false;
 
   ngOnInit() {
     this.recipes$ = this.recipesService.object;

@@ -1,11 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-        @if(isShowRecipeForm){
-            <app-recipe-form (hide)="isShowRecipeForm = false"></app-recipe-form>
-        }
-        @else{
-            <button class="btn btn-success mt-2" (click)="isShowRecipeForm = true">New Recipe</button>
-        }
+            <button class="btn btn-success mt-2" routerLink="new">New Recipe</button>
         <hr>
     </div>
 </div>

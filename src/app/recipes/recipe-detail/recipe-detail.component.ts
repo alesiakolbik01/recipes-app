@@ -70,7 +70,6 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   close(){
-    this.recipesService.selectedRecipe.emit(null);
     this.router.navigate(['/recipes']);
   }
 }

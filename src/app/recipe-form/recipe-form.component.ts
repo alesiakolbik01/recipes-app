@@ -6,10 +6,10 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Recipe } from '../recipes/recipe.model';
+import { NgForm } from '@angular/forms';
 import { RecipesService } from '../recipes/services/recipes.service';
 import { Ingredient } from '../shared/ingredient.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-form',
@@ -32,27 +32,30 @@ export class RecipeFormComponent implements OnInit {
 
   ingredients: Ingredient[] = [];
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.recipesService = inject(RecipesService);
   }
 
-  @Input() editingResipeId?: number;
-  @Output() hide: EventEmitter<void> = new EventEmitter<void>();
+  resipeId?: number;
+  editMode: boolean = false;
 
   ngOnInit() {
-    if (this.editingResipeId) {
-      this.recipeData = {...this.recipesService.getRecipeById(this.editingResipeId)};
+    this.resipeId = +this.route.snapshot.params['id'];
+    this.editMode = this.route.snapshot.params['id'] !== undefined;
+    if (this.resipeId) {
+      this.recipeData = {...this.recipesService.getRecipeById(this.resipeId)};
     }
   }
 
   onFormSubmit(f: NgForm): void {
     if (f.valid) {
-      if (this.editingResipeId) {
-        this.recipesService.onUpdateRecipe(f.value, this.editingResipeId);
+      if (this.resipeId) {
+        this.recipesService.onUpdateRecipe(f.value, this.resipeId);
+        this.router.navigate(['recipes', this.resipeId]);
       } else {
         this.recipesService.onAddNewRecipe(f.value);
+        this.router.navigate(['recipes']);
       }
-      this.hide.emit();
     }
   }
 

@@ -2,11 +2,8 @@
   <div class="col-xs-12">
     <div class="d-flex justify-content-between align-items-center">
       <h3>
-        {{ editingResipeId ? "Editing the recipe" : "Cretion a new recipe" }}
+        {{ editMode ? "Editing the recipe" : "Cretion a new recipe" }}
       </h3>
-      <button class="btn" type="button" (click)="hide.emit()">
-        <span class="icon-cross"></span>
-      </button>
     </div>
     <form #f="ngForm" (ngSubmit)="onFormSubmit(f)">
       <div class="mb-3">
@@ -45,7 +42,7 @@
           name="imagePath"
           id="imagePathInput"
           autocomplete="none"
-          [disabled]="editingResipeId"
+          [disabled]="editMode"
           minlength="4"
           ngModel
           required
@@ -65,7 +62,7 @@
           [(ngModel)]="recipeData.time"
         />
       </div>
-      @if(!editingResipeId){
+      @if(!editMode){
       <div class="mb-3">
         <label>Add ingredients:</label>
         <ul class="list-group">
@@ -97,7 +94,13 @@
           class="btn btn-success"
           [disabled]="!f.form.valid"
         >
-          {{ editingResipeId ? "Save" : "Add" }}
+          {{ editMode ? "Save" : "Add" }}
+        </button>
+        <button
+          class="btn btn-danger ms-2"
+          routerLink="/recipes"
+        >
+          Cancel
         </button>
       </div>
     </form>
