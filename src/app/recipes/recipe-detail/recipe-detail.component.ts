@@ -6,10 +6,9 @@ import {
   OnInit,
 } from '@angular/core';
 
+import moment from 'moment';
 import { Recipe } from '../recipe.model';
 import { RecipesService } from '../services/recipes.service';
-import moment from 'moment';
-import { ShoppingListService } from '../services/shopping-list.service';
 import { Ingredient } from '../../shared/ingredient.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
@@ -27,7 +26,6 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(
     private recipesService?: RecipesService,
-    private shoppingListService?: ShoppingListService,
     private router?: Router,
     private route?: ActivatedRoute
   ) {}
@@ -64,7 +62,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   addToSoppingList() {
-    this.shoppingListService.addListItems(this.selectedIngredientsList);
+    this.recipesService.addInredientsToShoppingList(this.selectedIngredientsList);
     this.selectedIngredientsList = [];
     this.uncheckAllCheckboxesForm();
   }

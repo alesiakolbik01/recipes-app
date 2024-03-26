@@ -8,8 +8,6 @@ import { NavItem } from './shared/nav-item.model'
 })
 export class AppComponent {
 
-  title:string = 'culinary-recipes-app';
-
   tabs: NavItem[] = [
     {name: 'Recipes', id: 1, link: '/'},
     {name: 'Shopping List', id: 2, link: '/shopping-list'},

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Ingredient } from '../../shared/ingredient.model';
-import { BehaviorSubject, Observable, take, map } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 
 Injectable();
 export class ShoppingListService {
@@ -8,6 +8,8 @@ export class ShoppingListService {
     { name: 'tomat', amount: 1 },
     { name: 'onion', amount: 1 },
   ]);
+
+  ingredients$: Observable<Ingredient[]> = this.subject.asObservable();
 
   deleteItem(name: string): void {
     this.ingredients$.pipe(take(1)).subscribe((array: Ingredient[]) => {
@@ -84,8 +86,4 @@ export class ShoppingListService {
     });
   }
 
-  ingredients$: Observable<Ingredient[]> = this.subject.asObservable();
-  counter$: Observable<number> = this.ingredients$.pipe(
-    map((arr) => arr.length)
-  );
 }

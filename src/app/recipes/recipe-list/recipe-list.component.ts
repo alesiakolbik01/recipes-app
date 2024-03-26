@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { RecipesService } from '../services/recipes.service';
 import { Observable } from 'rxjs';
@@ -14,6 +14,6 @@ export class RecipeListComponent implements OnInit {
   recipes$: Observable<Recipe[]>;
 
   ngOnInit() {
-    this.recipes$ = this.recipesService.object;
+    this.recipes$ = this.recipesService.recipes$;
   }
 }

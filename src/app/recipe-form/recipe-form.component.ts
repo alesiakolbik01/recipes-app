@@ -1,9 +1,6 @@
 import {
   Component,
-  EventEmitter,
-  Input,
   OnInit,
-  Output,
   inject,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';

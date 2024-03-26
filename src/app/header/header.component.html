@@ -13,11 +13,18 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           @for(tab of navItems; track tab.id){
             <li class="nav-item">
-              <a class="nav-link"
+              <a class="nav-link position-relative"
                 role="button"
                 [routerLink]="tab.link"
                 routerLinkActive="active"
-                >{{tab.name}}</a>
+                >{{tab.name}}
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                *ngIf="tab.id === 2 && cardItemsCounter"
+                >
+                {{cardItemsCounter}}
+                  <span class="visually-hidden">items in your card</span>
+                </span>
+              </a>
             </li>
           }
         </ul>
